@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="../template/visitor_template.xhtml">
+        
+            <ui:define name="css"> <link rel="stylesheet" type="text/css" href="../resources/css/signupstyle.css"></link></ui:define>
+            <ui:define name="title">Signup | FA-Auction</ui:define>
+
+            <ui:define name="content">
+            <img id="signup_icon"  title="signup" src="../resources/images/sign-up.jpg"/> 
+                
+            <h:outputText style="font-size: 16px; position:relative; top: -535px; " value="Thank you for registering your new account."></h:outputText> <br/> <h:outputText style="font-size: 16px; position:relative; top: -535px;" value="Your account is currently pending approval by the site administrator."></h:outputText>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

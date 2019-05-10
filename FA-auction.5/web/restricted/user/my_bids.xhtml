@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      <ui:composition template="/template/user_template.xhtml">
+        <ui:define name="title">
+                My Bids
+        </ui:define>
+        <body>
+        <ui:define name="content">
+            <f:view>
+                <h:form>
+                    <h:outputText styleClass="mybtitle" value="My bids"/>
+                    <p:dataTable styleClass="mybtable" value="#{myBidsController.mybids}" var="item">
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="ItemId"/>
+                            </f:facet>
+                            <h:outputText value="#{item.itemId.itemId}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="BidAmount"/>
+                            </f:facet>
+                            <h:outputText value="#{item.bidAmount}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Time"/>
+                            </f:facet>
+                            <h:outputText value="#{item.bidsPK.time}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="View Details"/>
+                                </f:facet>
+                                <h:link id="viewAuctions" outcome="/view_auction_details">
+                                <h:outputText value="View Auction details"/>
+                                <f:param name="itemId" value="#{item.itemId.itemId}"/>
+                                </h:link>
+                            </p:column> 
+                    </p:dataTable>
+                </h:form>
+            </f:view>
+            </ui:define>
+    </body>
+    </ui:composition>
+</html>

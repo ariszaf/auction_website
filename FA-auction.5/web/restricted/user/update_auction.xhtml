@@ -1,0 +1,93 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f5="http://xmlns.jcp.org/jsf/passthrough">
+    <ui:composition template="/template/user_template.xhtml">
+        <ui:define name="title">Update auction | FA-Auction</ui:define>
+        <body>
+            <ui:define name="content">
+                    <h:form styleClass="add_auction_container" enctype="multipart/form-data">
+                        <h6>Update auction now!</h6>
+                        <h:messages style="color: red" globalOnly="true"/>
+                        <p:growl id="dltphoto"></p:growl>
+                        <h:panelGrid columns="3">
+                        <h:outputText styleClass="add_auction_names" value="*Auction name"/>
+                        <h:inputText id="Name" value="#{updateAuctionController.name}" styleClass="add_auction_text-input" 
+                                     required ="true" requiredMessage="Please enter your username" 
+                                     validatorMessage="Auction name must be fewer than 44 characters">
+                            <f:validateLength maximum="44"/>
+                        </h:inputText>
+                            <h:message for="Name" styleClass="add_auction_error" />                                    
+                        <h:outputText styleClass="add_auction_names" value="Buy price"/>
+                        <h:inputText  value="#{updateAuctionController.buyprice}" styleClass="add_auction_text-input">
+                        </h:inputText><p></p>              
+                        <h:outputText styleClass="add_auction_names" value="*First bid"/>
+                        <h:inputText id="First_bid" value="#{updateAuctionController.firstbid}" styleClass="add_auction_text-input" 
+                                     required ="true" requiredMessage="Please enter first bid">
+                        </h:inputText>
+                            <h:message for="First_bid" styleClass="add_auction_error"/>                         
+                        <h:outputText styleClass="add_auction_names" value="*Started"/>   
+                        <p:calendar id="Started" value="#{updateAuctionController.started}" pattern="MM/dd/yyyy HH:mm:ss" 
+                                    required="true" requiredMessage="Start date required"/>
+                        <h:message for="Started" styleClass="add_auction_error"/>
+                        <h:outputText styleClass="add_auction_names" value="*Ends"/>   
+                        <p:calendar id="Ends" value="#{updateAuctionController.ends}" pattern="MM/dd/yyyy HH:mm:ss"  
+                                    required="true" requiredMessage="Ends date required"/>
+                            <h:message for="Ends" styleClass="add_auction_error"/>       
+                                                    <h:outputText styleClass="add_auction_names" value="*Country"/>
+                        <h:inputText id="Country" value="#{updateAuctionController.country}" styleClass="add_auction_text-input" 
+                                     required ="true" requiredMessage="Please enter the country"
+                                     validatorMessage="Country must be fewer than 44 characters">
+                            <f:validateLength maximum="44"/>
+                        </h:inputText>
+                            <h:message for="Country" styleClass="add_auction_error"/>          
+                            <h:outputText styleClass="add_auction_names" value="*City"/>
+                        <h:inputText id="City" value="#{updateAuctionController.city}" styleClass="add_auction_text-input" 
+                                     required ="true" requiredMessage="Please enter the city"
+                                     validatorMessage="City must be fewer than 44 characters">
+                            <f:validateLength maximum="44"/>
+                        </h:inputText>
+                            <h:message for="City" styleClass="add_auction_error"/>  
+                        <h:outputText styleClass="add_auction_names" value="*Description"/>   
+                        <h:inputTextarea id="Description" value="#{updateAuctionController.description}" 
+                                         styleClass="add_auction_textarea-input" required ="true" 
+                                         requiredMessage="Please enter description" 
+                                         validatorMessage="Description must be fewer than 2499 characters 
+                                         and larger than 10 characters">
+                            <f:validateLength minimum="10" maximum="2499"/>
+                        </h:inputTextarea>                        
+                            <h:message for="Description" styleClass="add_auction_error"/>
+                        <h:outputText styleClass="add_auction_names" value="Select Category"/>     
+                        <h:selectManyCheckbox id="grid" value="#{updateAuctionController.selectedcategories}" layout="grid" >
+                            <f:selectItems value="#{updateAuctionController.categories}" var="city" itemLabel="#{category}" itemValue="#{category}" />
+                        </h:selectManyCheckbox><p></p>        
+                        <h:outputText styleClass="add_auction_names" value="Upload Photos"/> 
+                        <p:fileUpload  fileUploadListener="#{fileUploadController.upload}"  
+                                       allowTypes="/(\.|\/)(gif|jpe?g|png|jpg)$/" fileLimit="7" update="msg" 
+                                       sizeLimit="1000000"/> 
+                         <p:growl id="msg"></p:growl>       
+            
+                         <h:dataTable cellspacing="5" cellpadding="5" value="#{updateAuctionController.photos}" var="image">
+                            <h:column>
+                                <p:graphicImage style="height: 100px; width: 120px;" styleClass="image_gallery" name="/images/#{image.name}" id="image">
+                                </p:graphicImage>                                
+                            </h:column>
+                            <h:column>
+                                <h:commandLink id="dltphoto" style="color:red;top:55px;" value="Delete" action="#{updateAuctionController.deletephoto()}" >
+                                    <f:param name="photoId" value="#{image.photoId}"/>
+                                </h:commandLink>                                           
+                            </h:column>
+                         </h:dataTable>  
+                         
+                    </h:panelGrid>
+                    <h:commandButton id="btnSubmit" styleClass="add_auction_button" value="Update" 
+                                     action="#{updateAuctionController.update()}"/>
+                </h:form>
+            </ui:define>
+        </body>
+    </ui:composition>
+</html>

@@ -1,0 +1,187 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui" >
+
+    <body>
+        <ui:composition template="/template/visitor_template.xhtml">
+           
+            <ui:define name="title">Signup | FA-Auction</ui:define>
+            <ui:define name="script"></ui:define>
+            <ui:define name="content">
+                <h:graphicImage id="signup_icon" library="images" name="sign-up.jpg"/>
+
+                <h:form id="forma" styleClass="signup_container" prependId="false">
+                    
+                    <p:growl id="growl" life="2000" />
+                    
+                    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAYyayc_z6eKGxr0SLSKQ8_nnWz7B1iHP4" type="text/javascript"></script>
+                    
+                    <h6>Register to FA-Auction</h6>
+                    <h:messages styleClass="error" globalOnly="true"/>
+                    <h:panelGrid columns="3">
+                        <p:outputLabel value="Username" for="input"/>
+                        <p:inputText id="input" value="#{signUpController.username}" styleClass="signup_text-input" required ="true" 
+                                     requiredMessage="Please enter your username" validatorMessage="Username must be fewer than 33 characters">
+                            <f:validateLength maximum="33"/>
+                        </p:inputText>
+                        <h:message for ="input" styleClass="error" />
+                        
+                        <p:outputLabel  value="Password" for="password"/>
+                        <p:password id="password" value="#{signUpController.password}" styleClass="signup_text-input" required ="true" feedback="true"
+                                       requiredMessage="Please enter your password" validatorMessage="Password must be fewer than 44 characters and larger than 5 characters">
+                            <f:validateLength minimum="5" maximum="44"/>
+                        </p:password>        
+                        <h:message for="password" styleClass="error" />                   
+                        
+                        <p:outputLabel  value="Confirm_password" for="confirm_password"/>
+                        <p:password id="confirm_password" value="#{signUpController.confirm_password}" styleClass="signup_text-input" 
+                                       required ="true" requiredMessage="Please enter your password" validatorMessage="Password must be fewer than 44 characters">
+                            <f:validateLength maximum="44"/>
+                        </p:password>        
+                        <h:message for="confirm_password" styleClass="error" />
+                        
+                        <p:outputLabel  value="Name" for="Name"/>
+                        <p:inputText id="Name" value="#{signUpController.name}" styleClass="signup_text-input" required ="true" 
+                                     requiredMessage="Please enter your Name" validatorMessage="Name must be fewer than 44 characters">
+                            <f:validateLength maximum="44"/>
+                        </p:inputText> 
+                        <h:message for="Name" styleClass="error" />
+                        
+                        <p:outputLabel value="Surname" for="Surname"/>
+                        <p:inputText id="Surname" value="#{signUpController.surname}" styleClass="signup_text-input" required ="true" 
+                                     requiredMessage="Please enter your Surname" validatorMessage="Surname must be fewer than 44 characters">
+                            <f:validateLength maximum="44"/>
+                        </p:inputText> 
+                        <h:message for="Surname" styleClass="error"/>
+                        
+                        <p:outputLabel value="Email" for="Email"/>
+                        <p:inputText id="Email" value="#{signUpController.email}" styleClass="signup_text-input" required ="true" 
+                                     validatorMessage="Invalid e-mail address format">
+                            <f:validateLength maximum="44"/>
+                            <f:validateRegex pattern="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"/>
+                        </p:inputText> 
+                        <h:message for="Email" styleClass="error" />
+                        
+                        <p:outputLabel value="Phone" for="Phone"/>
+                        <p:inputText id="Phone" value="#{signUpController.phone}" styleClass="signup_text-input"/>
+                        <p></p>
+                        
+                        <p:outputLabel value="Address" for="Address"/>
+                        <p:inputText id="Address" value="#{signUpController.address}" styleClass="signup_text-input" required ="true" 
+                                     requiredMessage="Please enter your Address" validatorMessage="Invalid address name" onkeyup="geocode()">
+                            <f:validateLength minimum="5" maximum="44"/>
+                                      
+                        </p:inputText> 
+                        <h:message for="Address" styleClass="error" />
+                        
+                        <p:outputLabel value="City" for="City"/>
+                        <p:inputText id="City" value="#{signUpController.city}" styleClass="signup_text-input"  required ="true" 
+                                     requiredMessage="Enter please your city" validatorMessage="Invalid city name" onkeyup="geocode()">
+                            <f:validateLength minimum="2" maximum="44"/>
+                        </p:inputText>
+                        
+                        <h:message for ="City" styleClass="error" />
+                        
+                        <p:outputLabel value="Country " for="Country"/>
+                        <p:inputText id="Country" value="#{signUpController.country}" styleClass="signup_text-input" required ="true" 
+                                     requiredMessage="Enter please your country" validatorMessage="Invalid country name" onkeyup="geocode()" >
+                            
+                        </p:inputText>
+                        <h:message for ="Country" styleClass="error" />
+                        
+                        <p:outputLabel value="ZIP code " for="ZipCode"/>
+                        <p:inputText id="ZipCode" value="#{signUpController.zip}"  styleClass="signup_text-input" onkeyup="geocode()"/>  
+                        <p></p>
+                        
+                        <p:outputLabel value="VAT number " for="vat"/>
+                        <p:inputText id="vat" value="#{signUpController.vat}" styleClass="signup_text-input"/> 
+                        <p></p>
+                        
+                        <p:outputLabel value="Account type " for="type"/>
+                        <p:selectOneRadio id="type" required="true" value="#{signUpController.account_type}" requiredMessage="Please select your account type">
+                        <f:selectItem itemValue="2" itemLabel="Seller" />
+                        <f:selectItem itemValue="3" itemLabel="Buyer" />
+                        </p:selectOneRadio>	
+                        <h:message for ="type" styleClass="error" />
+                        
+                        
+                    </h:panelGrid>
+                        
+                    
+                    
+                    <p></p>
+                    <p:commandButton  styleClass="signup_button" id="button" value="submit" icon=" ui-icon-check " action="#{signUpController.signupUser()}" process="@all" update="growl" >
+                        
+                      
+                    </p:commandButton>   
+                        
+                    <h:outputText value="&#160;&#160;&#160;"/> 
+                    <p:commandButton styleClass="signup_button" value="Reset" icon="ui-icon-refresh" type="reset" /> 
+                    
+                     <h:panelGroup style="block" styleClass="gmaps_signup">
+                         <p:gmap id="gmap" widgetVar="map" center="#{mapControler.centerMap}" zoom="3" type="ROADMAP" style="width:500px;height:350px"
+                                 model="#{mapControler.model}"  navigationControl="false"   disableDoubleClickZoom="true" >
+                        
+                        <p:ajax event="geocode" listener="#{mapControler.onGeocode}" update=":forma:gmap :forma:button " />
+                        <p:ajax event="pointSelect" listener="#{mapControler.pointSelectEvent}"  update="gmap lat lng " disabled="#{mapControler.deactivateEvent}" />
+                        <p:ajax event="reverseGeocode" listener="#{mapControler.onReverseGeocode}" update=":forma:padding :forma:Address" />
+                        <p:ajax event="markerDrag"  listener="#{mapControler.onMarkerDrag}" update=":forma:padding" /> 
+
+                    </p:gmap>
+                    
+                     <h:panelGroup id="padding" layout="block"> 
+           
+                        <h:inputHidden id="lat" value="#{mapControler.lat}"/>
+                        <h:inputHidden id="lng" value="#{mapControler.lng}"/>
+                        <h:outputText  style="font-size: 16px;" value="#{mapControler.address}"/> 
+                    </h:panelGroup>
+                    
+                    <p:commandButton value="Get Address" icon="ui-icon-transferthick-e-w" onclick="reverseGeocode();" type="button" update="padding"   >      
+                    </p:commandButton>
+
+                </h:panelGroup>
+                    
+                </h:form>    
+                
+                <script type="text/javascript">
+                    function reverseGeocode() {
+                        var lat = document.getElementById('lat').value;   
+                        var lng = document.getElementById('lng').value;
+                        
+                        PF('map').reverseGeocode(lat,lng);
+
+                    }
+                    
+                    function geocode(){
+                       
+                       
+                        var fulladdress = "";
+                        
+                        var address = document.getElementById('Address').value;
+                            fulladdress =fulladdress.concat(address);
+                            fulladdress =fulladdress.concat(' ');
+                        var city = document.getElementById('City').value;
+                            fulladdress =fulladdress.concat(city);
+                            fulladdress =fulladdress.concat(' ');
+                        var zipcode = document.getElementById('ZipCode').value;
+                            fulladdress =fulladdress.concat(zipcode);
+                            fulladdress =fulladdress.concat(' ');
+                        var country = document.getElementById('Country').value;
+                            fulladdress =fulladdress.concat(country);
+                            fulladdress =fulladdress.concat(' ');
+                           
+                        
+                        PF('map').geocode(fulladdress);
+                    
+                    }
+                </script>
+                    
+            </ui:define>
+            
+        </ui:composition>
+    </body>
+</html>

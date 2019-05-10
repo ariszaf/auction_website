@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context antiJARLocking="true" path="/FA-auction">
+  <Resource auth="Container" driverClassName="com.mysql.jdbc.Driver" factory="org.apache.tomcat.jdbc.pool.DataSourceFactory" initialSize="34" maxActive="100" maxIdle="233" maxWait="10000" minIdle="89" name="jdbc/fadata" password="C3DD2012" removeAbandoned="true" removeAbandonedTimeout="60" testOnBorrow="true" type="javax.sql.DataSource" url="jdbc:mysql://localhost:3306/fadata?allowMultiQueries=true" username="root" validationInterval="34000" validationQuery="SELECT 1"/>
+</Context>

@@ -1,0 +1,155 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <ui:composition template="/template/user_template.xhtml">
+        <ui:define name="title">Auction Details</ui:define>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  
+        <ui:define name="content">
+            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAYyayc_z6eKGxr0SLSKQ8_nnWz7B1iHP4" type="text/javascript"></script>
+            <h:form id="forma">
+                
+            
+                
+            <p:growl id="growl" life="2000"/>
+            
+            <h:panelGrid  columns="4" styleClass="auction_details" columnClasses="logo,detail">
+                <h:panelGrid styleClass="column1" columns="3" cellpadding="5">
+                    <h:outputText value="Item Id:" />
+                    <h:outputText value="#{viewAuctionDetailsController.item_id}" styleClass="auction_detail_result"/>
+                    <h:outputText></h:outputText> 
+
+                    <h:outputText value="Seller Rating" />
+                    <h:outputText value="#{viewAuctionDetailsController.rating_s}" styleClass="auction_detail_result">
+                        <f:convertNumber pattern="#0.00" />
+                    </h:outputText>
+                    <h:outputText></h:outputText>                     
+                
+                    <h:outputText value="Name:" />
+                    <h:outputText value="#{viewAuctionDetailsController.name}" styleClass="auction_detail_result"/>
+                    <h:outputText></h:outputText>
+
+                    <h:outputText value="Currently:" />
+                    <h:outputText value="#{viewAuctionDetailsController.currently}" styleClass="auction_detail_result"/>
+                    <h:outputText></h:outputText>
+
+                    <h:outputText value="Buyprice:" />
+                    <h:outputText value="#{viewAuctionDetailsController.buyprice}" styleClass="auction_detail_result"/>
+                    <h:outputText></h:outputText>
+
+                    <h:outputText value="Number of bids:" />
+                    <h:outputText value="#{viewAuctionDetailsController.numberofbids}" styleClass="auction_detail_result"/>
+                    <h:outputText></h:outputText>
+
+                    <h:outputText value="City:" />
+                    <h:outputText value="#{viewAuctionDetailsController.city}" styleClass="auction_detail_result"/>
+                    <h:outputText></h:outputText>
+
+                    <h:outputText value="Country:" />
+                    <h:outputText value="#{viewAuctionDetailsController.country}" styleClass="auction_detail_result"/>
+                    <h:outputText></h:outputText>
+
+                    <h:outputText value="Started:" />
+                    <h:outputText value="#{viewAuctionDetailsController.started}" styleClass="auction_detail_result" >      
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>   
+                    <h:outputText></h:outputText>
+
+                    <h:outputText value="Ends:" />
+                    <h:outputText value="#{viewAuctionDetailsController.ends}" styleClass="auction_detail_result">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>   
+                    <h:outputText></h:outputText>
+
+                    <h:outputText value="Description:" />
+                    <h:outputText style="width: 300px;" value="#{viewAuctionDetailsController.description}" styleClass="auction_detail_result"/>
+                    <h:outputText></h:outputText>
+
+                    <h:outputText value="Category:" />
+                    <h:dataTable value="#{viewAuctionDetailsController.itemcategories}" styleClass="auction_detail_result" var="category" >
+                        <h:column> 
+                        <f:facet name="header1"></f:facet>
+                        #{category.name}
+                        </h:column>               
+                    </h:dataTable>
+                    <h:outputText></h:outputText>
+
+                    <h:outputText value="Created from" />
+                    <h:dataTable value="#{viewAuctionDetailsController.created}" styleClass="auction_detail_result" var="from" >
+                        <h:column> 
+                        <f:facet name="header1"></f:facet>
+                        #{from.usersHasAuctionsPK.sellerUsername}
+                        </h:column>               
+                    </h:dataTable>
+                    <h:outputText></h:outputText>
+                    
+                    <h:outputText value="First Bid:" />
+                    <h:outputText value="#{viewAuctionDetailsController.firstbid}" styleClass="auction_detail_result"/>
+                    <h:outputText></h:outputText>
+
+                    <h:panelGroup  rendered="#{loginLogout.loggedIn}">
+                    <h:outputLabel value="YourBid: " />
+                    <p:spinner id="prefix" style="position:absolute; left:80px;" value="#{viewAuctionDetailsController.bidPrice}" prefix="$" min="#{viewAuctionDetailsController.minBid}"  />
+                    <p:commandButton style="position:absolute; left:280px" id="button" actionListener="#{viewAuctionDetailsController.validateBid}"  value="Bit" icon="ui-icon-check"  update="forma">
+                        <p:confirm parent="confirm" header="Confirmation" message="Are you sure you want to place Bid?" icon="ui-icon-alert" /> 
+                    </p:commandButton>
+                   
+                    </h:panelGroup>
+                    <h:outputText rendered="#{loginLogout.loggedIn}"></h:outputText>
+                    <h:outputText rendered="#{loginLogout.loggedIn}"></h:outputText>
+                    
+                    
+                </h:panelGrid>
+                
+
+                <h:panelGrid rendered="#{viewAuctionDetailsController.phlistsize>0}" styleClass="column2" columns="2">
+                    <h:panelGroup style="block" >   
+                        <f:facet name="header">             
+                            <div  id="pg-text">Photo-Gallery</div>
+                        </f:facet>
+                        <p:row>
+                            <p:commandButton type="button" onclick="PF('switcher').previous();" icon="ui-icon-circle-triangle-w" id="prev"/>
+                            <p:commandButton type="button" onclick="PF('switcher').next();" icon="ui-icon-circle-triangle-e" id="next"/>
+                        </p:row>
+                    </h:panelGroup>
+
+                    <h:panelGroup style="block" >   
+                        <p:imageSwitch styleClass="image_switch"  effect="wipe" widgetVar="switcher" id="manuelSwitcher" slideshowAuto="false">
+                        <ui:repeat value="#{viewAuctionDetailsController.photolist}" var="image" id="manuelSwitcherImages">
+                            <p:graphicImage  styleClass="image_gallery" name="/images/#{image}" id="image"/>
+                        </ui:repeat>
+                        </p:imageSwitch>
+                    </h:panelGroup>       
+                </h:panelGrid>
+
+                <h:panelGrid rendered="#{viewAuctionDetailsController.phlistsize==0}" styleClass="column2" columns="1">
+                    <h:graphicImage styleClass="image_gallery"  id="image" library="images" name="noavimage.png" value="resources/images/logo.png"/>
+                </h:panelGrid>
+
+
+                <h:panelGroup style="block" >
+                    <p:gmap id="gmap" widgetVar="map" center="#{viewAuctionDetailsController.centerMap}" zoom="3" type="ROADMAP" style="width:300px;height:250px"
+                            model="#{viewAuctionDetailsController.model}"  navigationControl="false"  mapTypeControl="false"  disableDoubleClickZoom="true" >
+                    </p:gmap>
+                </h:panelGroup>
+
+            </h:panelGrid>
+            </h:form>
+            
+            <h:form>
+                <p:confirmDialog global="true" id="confirm"   showEffect="fade" hideEffect="explode">
+                        <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"   update="forma" />
+                        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                </p:confirmDialog>
+            </h:form>    
+
+        </ui:define>
+  
+    </ui:composition>
+</html>

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head></h:head>
+    <body>
+        <ui:composition template="../../template/admin_template.xhtml">
+            
+            <title><ui:define name="title"> Profile #{activateUpdate.meta_username} </ui:define></title>
+            <ui:define name="content">
+                <h:form>
+                
+                <p:growl id="growl" life="2000" />       
+                <f:metadata>
+                    <f:viewParam name="user" value="#{activateUpdate.meta_username}">                   
+                    </f:viewParam>
+                    <f:viewAction action="#{activateUpdate.loadUser()}"  />
+                </f:metadata>
+                    
+                 
+                <p:panelGrid id="panel" columns="3">
+                    <f:facet name="header">
+                        <h:outputText value="User #{activateUpdate.username} profile"/>
+                    </f:facet>
+
+                    <h:outputText value="Username:" />
+                    <h:outputText value="#{activateUpdate.username}" rendered="#{not activateUpdate.EUsername}"  />
+                    <h:outputText/>
+                    
+                    <h:outputText value="Password:" />
+                    <h:outputText value="#{activateUpdate.password}" rendered="#{not activateUpdate.EPassword}" />
+                    <h:inputText value="#{activateUpdate.password}" rendered="#{activateUpdate.EPassword}" />
+                    <h:commandButton id="Password" action="#{activateUpdate.editPassword()}" value="Edit">
+                        <f:ajax render ="panel"/>
+                    </h:commandButton>
+                    
+                    
+                    <h:outputText value="Name:" />
+                    <h:outputText value="#{activateUpdate.name}" rendered="#{not activateUpdate.EName}" />
+                    <h:inputText value="#{activateUpdate.name}" rendered="#{activateUpdate.EName}" />
+                    <h:commandButton id="Name" value="Edit" action="#{activateUpdate.editName()}">
+                        <f:ajax render ="panel"/>
+                    </h:commandButton>
+                    
+                    <h:outputText value="Surname:" />
+                    <h:outputText value="#{activateUpdate.surname}" rendered="#{not activateUpdate.ESurname}" />
+                    <h:inputText value="#{activateUpdate.surname}" rendered="#{activateUpdate.ESurname}" />
+                    <h:commandButton id="Surname" value="Edit" action="#{activateUpdate.editSurname()}">
+                         <f:ajax render ="panel"/>
+                    </h:commandButton>
+                    
+                    <h:outputText value="Email:" />
+                    <h:outputText value="#{activateUpdate.email}" rendered="#{not activateUpdate.EEmail}" />
+                    <h:inputText value="#{activateUpdate.email}" rendered="#{activateUpdate.EEmail}" />
+                    <h:commandButton id="Email" value="Edit" action="#{activateUpdate.editEmail()}">
+                         <f:ajax render ="panel"/>
+                    </h:commandButton>
+                    
+                    <h:outputText value="Phone:" />
+                    <h:outputText value="#{activateUpdate.phone}" rendered="#{not activateUpdate.EPhone}" />
+                    <h:inputText value="#{activateUpdate.phone}" rendered="#{activateUpdate.EPhone}" />
+                    <h:commandButton id="Phone" value="Edit" action="#{activateUpdate.editPhone()}">
+                         <f:ajax render ="panel"/>
+                    </h:commandButton>
+                    
+                    <h:outputText value="Address:" />
+                    <h:outputText value="#{activateUpdate.address}" rendered="#{not activateUpdate.EAddress}" />
+                    <h:inputText value="#{activateUpdate.address}" rendered="#{activateUpdate.EAddress}" />
+                    <h:commandButton id="Address" value="Edit" action="#{activateUpdate.editAddress()}">
+                         <f:ajax render ="panel"/>
+                    </h:commandButton>
+                    
+                    <h:outputText value="City:" />
+                    <h:outputText value="#{activateUpdate.city}" rendered="#{not activateUpdate.ECity}" />
+                    <h:inputText value="#{activateUpdate.city}" rendered="#{activateUpdate.ECity}" />
+                    <h:commandButton id="City" value="Edit" action="#{activateUpdate.editCity()}">
+                         <f:ajax render ="panel"/>
+                    </h:commandButton>
+                    
+                    <h:outputText value="Country:" />
+                    <h:outputText value="#{activateUpdate.country}" rendered="#{not activateUpdate.ECountry}" />
+                    <h:inputText value="#{activateUpdate.country}" rendered="#{activateUpdate.ECountry}" />
+                    <h:commandButton id="Country" value="Edit" action="#{activateUpdate.editCountry()}">
+                         <f:ajax render ="panel"/>
+                    </h:commandButton>
+                    
+                    <h:outputText value="Date of Registration:" />
+                    <h:outputText value="#{activateUpdate.dateRegistartion}" />
+                    <h:outputText/>
+                    
+                    <h:outputText value="Bit Rating:"  />
+                    <h:outputText value="#{activateUpdate.bidRating}" />
+                    <h:outputText/>
+                  
+                    <h:outputText value="Seller Rating:" rendered="#{activateUpdate.accountType == 2}" />
+                    <h:outputText value="#{activateUpdate.sellerRating}" rendered="#{activateUpdate.accountType == 2}"/>
+                    <h:outputText rendered="#{activateUpdate.accountType == 2}" />
+                    
+                    <h:outputText value="Activated:"/>
+                    <h:outputText value="#{activateUpdate.validate}"/>
+                    <h:commandButton id="Validate" value="Activate" action="#{activateUpdate.setValidate(true)}" rendered="#{not activateUpdate.EValidate}" >
+                         <f:ajax render ="panel"/>
+                    </h:commandButton>
+                    
+                    <h:commandButton id="Devalidate" value="Deactivate" action="#{activateUpdate.setValidate(false)}" rendered="#{activateUpdate.EValidate}" >
+                         <f:ajax render ="panel"/>
+                    </h:commandButton>
+                    
+                    
+                    
+                    <h:outputText value="Account Type" />
+                    <h:outputText id="admin" value="Administrator" rendered="#{activateUpdate.accountType == 1 and not activateUpdate.EAccount}" />
+                    <h:outputText id="seller" value="Seller" rendered="#{activateUpdate.accountType == 2 and not activateUpdate.EAccount}" />
+                    <h:outputText id="buyer"  value="Buyer" rendered="#{activateUpdate.accountType == 3 and not activateUpdate.EAccount}" />
+                    <h:selectOneRadio id="type" value="#{activateUpdate.accountType}"  rendered="#{activateUpdate.EAccount}" >
+                        <f:selectItem itemValue="2" itemLabel="Seller" />
+                        <f:selectItem itemValue="3" itemLabel="Buyer" />
+                        <f:selectItem itemValue="1" itemLabel="Administrator"/>
+                    </h:selectOneRadio>
+                    <h:commandButton id="Account" value="Edit" action="#{activateUpdate.editAccount()}" rendered="#{not activateUpdate.EAccount}">
+                        <f:ajax render ="panel seller buyer admin"/>
+                    </h:commandButton>
+                    
+                    
+ 
+                </p:panelGrid>
+                <p:commandButton id="Save" value="Save Changes" update="@all" actionListener="#{activateUpdate.save}" styleClass="ui-priority-primary"/>
+                </h:form>
+    
+                
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

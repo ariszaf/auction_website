@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head></h:head>
+    <body>
+        <ui:composition template="../../template/admin_template.xhtml" rendered="#{loginLogout.accountype == 3}">
+            <title><ui:define name="title">  My messages  </ui:define> </title>
+            
+            <ui:define name="content">
+                <h:form id="forma">
+                   
+                    <p:growl widgetVar="growl" />
+                    
+                    <p:tieredMenu style="width:200px">
+                        <p:submenu label="Messages" icon="ui-icon-mail-closed">
+                            <p:menuitem value="Incoming" actionListener="#{viewMessage.setControlview(1)}" update="forma" process="@this" icon=" ui-icon-circle-arrow-s " />
+                            <p:menuitem value="Outgoing" actionListener="#{viewMessage.setControlview(2)}" update="forma" process="@this" icon="ui-icon-circle-arrow-n" />
+                        </p:submenu>
+                        <p:submenu label="Edit" icon="ui-icon-pencil">
+                            <p:menuitem value="Compose" update="forma"  process="@this"  action="#{viewMessage.setControlview(3)}"   />
+                        </p:submenu>
+                        <p:separator />
+                        <p:submenu label="Navigations" icon="ui-icon-extlink">
+                            <p:submenu label="Prime Links">
+                                <p:menuitem value="Prime" url="http://www.prime.com.tr" title="xxx" />
+                                <p:menuitem value="PrimeFaces" url="http://www.primefaces.org" />
+                            </p:submenu>
+                            
+                        </p:submenu>
+                    </p:tieredMenu>
+                    
+    
+                                   
+                    <p:dataTable id="messages" var="message" value="#{viewMessage.incomingMail}" rows="100" 
+                                 widgetVar="MessageTable" filteredValue="#{viewMessage.filteredincomingMail}"
+                                paginator="true"
+                                paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                rowsPerPageTemplate="5,10,20,50,100" style="width: 84%; position: relative; top: -96px; left: 210px;"
+                                rendered="#{viewMessage.controlview==1 or viewMessage.controlview==4 }" 
+                                selection="#{viewMessage.deleteInComingmessage}" rowKey="#{message.messageId}">
+                        
+                            <p:column selectionMode="multiple" style="width:16px;text-align:center" rendered="#{viewMessage.controlview==4}"/>    
+                            <p:column  sortBy="#{message.dateSent.date}" filterBy="#{message['subject']}">
+                            
+                            <f:facet name="header">
+                                <h:outputText value="Incoming Mail" />
+                            </f:facet>
+                            
+                            <h:panelGroup  style="width:100%"  >    
+                               
+                                <p:commandLink update=":forma:text" oncomplete="PF('TextDialog').show()" actionListener="#{viewMessage.setCurrmess(message)}" >
+                                    <p:graphicImage style="width: 50px ; height: 40px" library="images" name="read-message.png" rendered="#{message.opened}" />
+                                </p:commandLink>
+                                
+                                <p:commandLink update=":forma:text :forma:messages :topform:message_counter" oncomplete="PF('TextDialog').show()" actionListener="#{viewMessage.setRead(message)}" >
+                                    <f:param name="#{message.opened}" value="true" />
+                                    <p:graphicImage style="width: 50px ; height: 40px" library="images" name="unread-message.png" rendered="#{not message.opened}" />
+                                </p:commandLink>    
+                                
+                                <h:panelGroup  layout="block"  >
+                                        <h:outputText value="Sender:" style="position:relative; top:-30px; left:18px;" />
+                                        <h:outputText value="#{message.senderUsername.username}" style="font-weight: bold; position:relative; top:-30px; left: 22px; color: #1E90FF ;" />
+
+                                        <h:outputText value="Time:" style="position:relative; top:-15px; left: -41px"  />
+                                        <h:outputText value="#{message.dateSent}" style="font-weight: bold; color:#1E90FF ; position:relative; top:-15px; left: -26px" rendered="#{not empty message.dateSent}"/>
+                                        <h:outputText value="" style="position:relative; top:30px" rendered="#{empty message.dateSent}"/>
+                                        
+                                        <h:outputText value="Subject:" style="position: relative; left:-261px;" />
+                                        <h:outputText value="#{message.subject}" style="font-weight: bold; position: relative; color:rgb(30,30,30); left:-258px " rendered="#{not empty message.subject}"/>
+                                        <h:outputText value="No Subject" rendered="#{empty message.subject}" style="font-weight: bold; position: relative; color: rgb(30,30,30); left:-258px" />
+                                        
+                                       
+                                        
+                                </h:panelGroup>
+                            </h:panelGroup>
+                                
+                            <f:facet name="footer">
+                                <p:commandButton icon="ui-icon-trash" action="#{viewMessage.setControlview(4)}" style="width:40px;text-align: center" rendered="#{viewMessage.controlview==1}" update="forma" />
+                                <p:commandButton icon="ui-icon-check" value="Delete" action="#{viewMessage.deleteInComingMessages()}" onclick="PF('growl').renderMessage()" update="forma" rendered="#{viewMessage.controlview==4}"  />
+                            </f:facet>    
+                                
+                        </p:column>
+                    </p:dataTable>    
+                    
+                    
+                    
+                    
+                    <p:dataTable id="messages2" var="message2" value="#{viewMessage.outgoingMail}" rows="100" 
+                                 widgetVar="MessageTable2" filteredValue="#{viewMessage.filteredoutgoingMail}"
+                                paginator="true"
+                                paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                rowsPerPageTemplate="5,10,20,50,100" style="width: 84%; position: relative; top: -96px; left: 210px;"
+                                rendered="#{viewMessage.controlview==2 or viewMessage.controlview==5}" 
+                                selection="#{viewMessage.deleteOutGoingmessage}" rowKey="#{message2.messageId}">
+                        
+                        <p:column selectionMode="multiple" style="width:16px;text-align:center" rendered="#{viewMessage.controlview==5}"/>    
+                        <p:column sortBy="#{message2.dateSent.date}" filterBy="#{message2['subject']}">
+                            
+                            <f:facet name="header">
+                                <h:outputText value="Outgoing Mail" />
+                            </f:facet>
+                            
+                            <h:panelGroup id="outcome"  style="width:100%"  >
+                                
+                                <p:commandLink update=":forma:text" oncomplete="PF('TextDialog').show()" actionListener="#{viewMessage.setCurrmess(message2)}" >
+                                    <p:graphicImage style="width: 50px ; height: 40px" library="images" name="read-message.png"/>
+                                </p:commandLink>
+   
+                                <h:panelGroup  layout="block"  >
+                                        <h:outputText value="Recipient:" style="position:relative; top:-30px; left:34px;" />
+                                        <h:outputText value="#{message2.recipientUsername.username}" style="font-weight: bold; position:relative; top:-30px; left: 38px; color: #1E90FF ;" />
+
+                                        <h:outputText value="Time:" style="position:relative; top:-15px; left: -41px"  />
+                                        <h:outputText value="#{message2.dateSent}" style="font-weight: bold; color:#1E90FF ; position:relative; top:-15px; left: -26px" rendered="#{not empty message2.dateSent}"/>
+                                        <h:outputText value="" style="position:relative; top:30px" rendered="#{empty message2.dateSent}"/>
+                                        
+                                        <h:outputText value="Subject:" style="position: relative; left:-261px;" />
+                                        <h:outputText value="#{message2.subject}" style="font-weight: bold; position: relative; color:rgb(30,30,30); left:-258px " rendered="#{not empty message2.subject}"/>
+                                        <h:outputText value="No Subject" rendered="#{empty message2.subject}" style="font-weight: bold; position: relative; color: rgb(30,30,30); left:-258px" />
+                                        
+                                </h:panelGroup>    
+                            </h:panelGroup>
+                           
+                            <f:facet name="footer">
+                                <p:commandButton icon="ui-icon-trash" action="#{viewMessage.setControlview(5)}" rendered="#{viewMessage.controlview==2}" style="width:40px;text-align: center;" update="forma" />
+                                <p:commandButton icon="ui-icon-check" value="Delete" action="#{viewMessage.deleteOutGoingMessages()}" onclick="PF('growl').renderMessage()" update="forma" rendered="#{viewMessage.controlview==5}"  />
+                            </f:facet>   
+                        
+                        </p:column>
+                    </p:dataTable> 
+                   
+                    <p:dialog header="Text" fitViewport="true"  widgetVar="TextDialog" modal="true"  showEffect="" hideEffect="explode" resizable="false" style="height: 300px; width: 300px ;text-align:center;">
+                        <p:outputPanel id="text">
+                            <p:inputTextarea readonly="true"  rows="20" cols="100" value="#{viewMessage.currmess.text}"  style="font-weight: bold; font-family: monospace;"/>
+                        </p:outputPanel>
+                    </p:dialog>    
+
+                    
+                    
+                    <h:panelGroup styleClass="commpose_message"  layout="block" rendered="#{viewMessage.controlview==3}" >
+                        
+                        <p:outputLabel for="recipient" value="Send To" />
+                        <p:inputText id="recipient" required="true" value="#{viewMessage.recipient}" placeholder="username" style="position:relative; left: 5px;" requiredMessage="Recipient is not specified" />
+                        
+                        <p:outputLabel for="Subject" value="Subject" style="position:relative; top:30px; left:-236px "  />
+                        <p:inputText id="Subject" value="#{viewMessage.subject}" placeholder="Subject" style="position:relative; top:30px; left: -220px;" />
+                        
+                        <p:editor id="editor" widgetVar="editorWidget" value="#{viewMessage.text}" width="1032" height="400" style="position: relative; top: 40px;" />
+                        
+                        <p:commandButton value="Send" style="position: relative; top:40px" onclick="PF('growl').renderMessage();" action="#{viewMessage.sendMessage()}" process="@this" icon=" ui-icon-mail-closed  "/>
+                        <p:commandButton style="position:relative; top:40px" update="panel" onclick="PF('editorWidget').clear();" value="Clear Message" process="forma" actionListener="#{viewMessage.resetCompose()}" type="reset" icon=" ui-icon-refresh "/>
+                    </h:panelGroup>
+                </h:form>
+                  
+               
+  
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

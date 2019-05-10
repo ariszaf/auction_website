@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+        <ui:composition template="/template/user_template.xhtml">
+            <ui:define name="title">
+                View my inactive Auctions
+            </ui:define>
+            <body>
+            <ui:define name="content"> 
+                <f:view>
+                    <h:form>
+                        <p:growl id="deleteAuction"></p:growl>
+                        <h:outputText styleClass="view_my_in_auctions" value="View my inactive auctions"/>                     
+                        <p:dataTable style="width: 100%;" value="#{viewMyAuctionsController.inactive_auctions}" 
+                                    paginator="true" rowsPerPageTemplate="5,10,20,50,100" 
+                                    paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     var="item"  styleClass="auctionTable">  
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="ItemId"/>
+                                </f:facet>
+                                <h:outputText value="#{item.itemId}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Name"/>
+                                </f:facet>
+                                <h:outputText value="#{item.name}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Currently"/>
+                                </f:facet>
+                                <h:outputText value="#{item.currently}$"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="BuyPrice"/>
+                                </f:facet>
+                                <h:outputText value="#{item.buyPrice}$"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="NumberOfBids"/>
+                                </f:facet>
+                                <h:outputText value="#{item.numberOfBids}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Country"/>
+                                </f:facet>
+                                <h:outputText value="#{item.country}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Ends"/>
+                                </f:facet>
+                                <h:outputText value="#{item.ends}">
+                                    <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                </h:outputText>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="View Details"/>
+                                </f:facet>
+                                <h:link id="viewAuctions" outcome="/view_auction_details">
+                                <h:outputText value="View"/>
+                                <f:param name="itemId" value="#{item.itemId}"/>
+                                </h:link>
+                            </p:column> 
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Delete Auction"/>
+                                </f:facet>
+                                <h:commandLink id="deleteAuction" action="#{deleteAuctionController.delete()}">
+                                <h:outputText value="Delete"/>
+                                <f:param name="itemId" value="#{item.itemId}"/>
+                                </h:commandLink>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Update Auction"/>
+                                </f:facet>
+                                <h:link id="updateAuction" outcome="/restricted/user/update_auction">
+                                <h:outputText value="Update"/>
+                                <f:param name="itemId" value="#{item.itemId}"/>
+                                </h:link>
+                            </p:column> 
+                </p:dataTable>
+                </h:form> 
+                </f:view>
+            </ui:define>
+        </body>
+        </ui:composition>    
+</html>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Debug page</title>
+    </h:head>
+    <h:body>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAYyayc_z6eKGxr0SLSKQ8_nnWz7B1iHP4" type="text/javascript"></script>
+ 
+        
+        <h:form styleClass="container">
+        
+            <a href="/FA-auction_4_ogdou/ExportXML">Login page</a>
+            
+            <p:inputText id="username" value="#{input}"/>
+            <p:commandButton id="Fetch" action="#{userDAO.getSellerRating(input)}"/>
+            
+        </h:form>
+        
+        
+    </h:body>
+</html>

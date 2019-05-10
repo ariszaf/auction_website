@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet library="css" name="fa_auction_style.css"/>
+        <ui:insert name="css"/>
+        <link rel="shortcut icon" type="image/png"   href="#{resource['images:favicon-image_1.png']}"/>           
+        <meta name="description" content="Best Auction site in Europe, FA-auction"/>
+        <title><ui:insert name="title">Admin Template</ui:insert></title>
+    </h:head>
+    <h:body>
+        
+        <h:form id="topform">
+            <div id="top1">
+                <ui:insert name="top">
+                   
+                    <h:graphicImage id="logout_icon" styleClass="logout_icon" style="position: relative; left:200px;" library="images" name="user_logout_icon.png"/>
+                    
+                    <h:commandLink id="logouttop" styleClass="logouttop" style="position: relative; left:200px;" action="#{loginLogout.logout()}"  value="Logout">  </h:commandLink>
+                   
+                    <h:graphicImage id="message_icon" styleClass="message_icon" style="position: relative; left:200px;" library="images" name="message_icon.png"/>
+                    <h:outputText id="message_counter" styleClass="message_counter" style="position: relative; left:190px;" rendered="#{not(loginLogout.unreadMessages == 0)}" value="#{loginLogout.unreadMessages}" />
+                    <h:link id="messages" styleClass="messages" style="position:relative; left:200px;" outcome="/restricted/admin/mymessages.xhtml"> <h:outputText  value="Messages"/></h:link>
+                </ui:insert>
+            </div>
+        </h:form>    
+            <div id="header">
+                <ui:insert name="header">
+                   <ui:include src="header_logo_bar.xhtml"/>
+                </ui:insert>     
+            </div> 
+            <div id="admin_menu">
+                <ui:insert name="menu">
+                    <h:button id="dropbtn1" outcome="/restricted/admin/Search-Users.xhtml" value="Search Users" ></h:button>    
+                    <h:button id="dropbtn2" value="My Account"  outcome="/restricted/admin/myprofile.xhtml"></h:button>
+                </ui:insert>
+            </div>            
+            
+        <div id="content" class="center_content">
+            <ui:insert name="content">
+                <ui:include src="content.xhtml"/>
+            </ui:insert>
+        </div>
+            
+        <div id="bottom">
+            <ui:insert name="footer_site">
+                <ui:include src="footer.xhtml"/>
+            </ui:insert>
+        </div>
+    </h:body>
+</html>
+    
+    
+

@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      <ui:composition template="/template/user_template.xhtml">
+        <ui:define name="title">
+                My ratings
+        </ui:define>
+        <body>
+        <ui:define name="content">
+            <f:view>
+                <h:form rendered="#{loginLogout.accountype==2}">
+                    <h:outputText styleClass="smr_title" value="My ratings as Seller, Average rate =">  </h:outputText>
+                    <h:outputText styleClass="myrating" value="#{myRatingsController.avg_rating_s}">
+                       <f:convertNumber pattern="#0.00" />
+                    </h:outputText>    
+                    <p:dataTable styleClass="smr_table" value="#{myRatingsController.ratings_s}" var="item">
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Rating"/>
+                            </f:facet>
+                            <p:rating value="#{item.rating}"  readonly="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Auction Name"/>
+                            </f:facet>
+                            <h:outputText value="#{item.auction.name}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Auction Item Id"/>
+                            </f:facet>
+                            <h:outputText value="#{item.auction.itemId}"/>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+                <h:form>
+                    <h:outputText styleClass="bmr_title" value="My ratings as Buyer, Average rate ="></h:outputText>
+                    <h:outputText styleClass="myrating" value="#{myRatingsController.avg_rating_b}">
+                        <f:convertNumber pattern="#0.00"/>
+                    </h:outputText> 
+                    <p:dataTable styleClass="bmr_table" value="#{myRatingsController.ratings_b}" var="item">
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Rating"/>
+                            </f:facet>
+                            <p:rating value="#{item.rating}"  readonly="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Auction Name"/>
+                            </f:facet>
+                            <h:outputText value="#{item.auction.name}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Auction Item Id"/>
+                            </f:facet>
+                            <h:outputText value="#{item.auction.itemId}"/>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>       
+            </f:view>
+            </ui:define>
+    </body>
+    </ui:composition>
+</html>

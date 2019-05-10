@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>Sign in | FA-auction</title>
+        <link rel="shortcut icon" type="image/png"   href="#{resource['images:favicon-image_1.png']}"/>                   
+        <meta name="description" content="Best Auction site in Europe"/>
+        <h:outputStylesheet library="css" name="fa_auction_style.css"/>
+
+    </h:head>       
+    <h:body styleClass="bodo">
+        <h:form class="index_container">
+
+            <p:growl id="growl" life="2000" globalOnly="true" />   
+
+            <h:panelGroup layout="block">
+                <h:graphicImage styleClass="indexlogo"  library="images" name="logo.png" value="resource/images/logo.png" alt="logo" />
+            </h:panelGroup>
+            <h4>Best Auction Site In Europe</h4>  
+
+            <h:panelGrid columns="2">
+                <h:messages styleClass="error_login" globalOnly="true" />  
+                <p></p>
+                <h:outputText value="Username:"/>
+                <h:inputText id="username" styleClass="index_text-input" value="#{loginLogout.username}"/>
+                <h:outputText value="Password:" />
+                <h:inputSecret id="password" styleClass="index_text-input" value="#{loginLogout.password}"/>
+            </h:panelGrid>
+            <h:commandButton styleClass="index_button" value="Login" action="#{loginLogout.login()}" />
+            <h5>
+                New user?&ensp;<h:commandButton styleClass="index_button" value="Sign-up" action="visitor/signup.xhtml"/>
+            </h5>
+
+            <h7>Visit site as visitor?&ensp;<h:commandButton styleClass="index_button" value="Visit" action="visitor/home-visitor.xhtml"/></h7>
+        </h:form>
+        <div id="index_footer">All Rights Reserved © Copyright 2016. Fwkiwn Zikidis and Aris Zafeiratis</div>
+    </h:body>
+
+</html>

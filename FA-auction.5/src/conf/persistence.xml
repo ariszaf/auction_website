@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+    <persistence-unit name="FA-auctionPU" transaction-type="RESOURCE_LOCAL">
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+        <class>entities.Users</class>
+        <class>entities.Buyers</class>
+        <class>entities.Administrators</class>
+        <class>entities.Auctions</class>
+        <class>entities.Messages</class>
+        <class>entities.Photos</class>
+        <class>entities.Bids</class>
+        <class>entities.Sellers</class>
+        <class>entities.Categories</class>
+        <class>entities.UsersWonAuctions</class>
+        <class>entities.Auction</class>
+        <class>entities.Photo</class>
+        <class>entities.Seller</class>
+        <class>entities.Categorie</class>
+        <class>entities.Buyer</class>
+        <class>entities.Message</class>
+        <class>entities.Administrator</class>
+        <class>entities.Category</class>
+        <class>entities.User</class>
+        <class>controllers.Bids</class>
+        <class>controllers.Message</class>
+        <class>controllers.Seller</class>
+        <class>controllers.User</class>
+        <class>controllers.Buyer</class>
+        <class>controllers.Photo</class>
+        <class>controllers.UsersWonAuctions</class>
+        <class>controllers.UsershasAuctions</class>
+        <class>controllers.Administrator</class>
+        <class>controllers.Category</class>
+        <class>controllers.Auction</class>
+        <class>entities.UsersHasAuctions</class>
+        <shared-cache-mode>NONE</shared-cache-mode>
+        <exclude-unlisted-classes>false</exclude-unlisted-classes>
+        <properties>
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/fadata?zeroDateTimeBehavior=convertToNull"/>
+            <property name="javax.persistence.jdbc.user" value="root"/>
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+            <property name="javax.persistence.jdbc.password" value="C3DD2012"/>
+            <property name="javax.persistence.schema-generation.database.action" value="create"/>
+        </properties>
+    </persistence-unit>
+<!--  
+    <persistence-unit name="FA-auctionPU" transaction-type="JTA">
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+        <class>entities.Users</class>
+        <class>entities.Buyers</class>
+        <class>entities.Administrators</class>
+        <class>entities.Auctions</class>
+        <class>entities.Messages</class>
+        <class>entities.Photos</class>
+        <class>entities.Bids</class>
+        <class>entities.Sellers</class>
+        <class>entities.Categories</class>
+        <class>entities.UsersWonAuctions</class>
+        <class>entities.Auction</class>
+        <class>entities.Photo</class>
+        <class>entities.Seller</class>
+        <class>entities.Categorie</class>
+        <class>entities.Buyer</class>
+        <class>entities.Message</class>
+        <class>entities.Administrator</class>
+        <class>entities.Category</class>
+        <class>entities.User</class>
+        <class>controllers.Bids</class>
+        <class>controllers.Message</class>
+        <class>controllers.Seller</class>
+        <class>controllers.User</class>
+        <class>controllers.Buyer</class>
+        <class>controllers.Photo</class>
+        <class>controllers.UsersWonAuctions</class>
+        <class>controllers.UsershasAuctions</class>
+        <class>controllers.Administrator</class>
+        <class>controllers.Category</class>
+        <class>controllers.Auction</class>
+        <class>entities.UsersHasAuctions</class>        
+        <jta-data-source>java:/comp/env/jdbc/fadata</jta-data-source>
+        <exclude-unlisted-classes>false</exclude-unlisted-classes>
+        <shared-cache-mode>NONE</shared-cache-mode>
+
+        <properties>
+            <property name="eclipselink.cache.shared.default" value="false"/>
+        </properties>        
+    </persistence-unit>-->
+</persistence>

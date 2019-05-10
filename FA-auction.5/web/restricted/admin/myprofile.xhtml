@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head></h:head>
+    <body>
+        <ui:composition template="../../template/admin_template.xhtml" rendered="#{loginLogout.accountype == 3}">
+            
+            <title><ui:define name="title"> My Profile #{loginLogout.user.username}  </ui:define></title> 
+            <ui:define name="content">
+                <h:form>
+                    
+                <p:growl id="growl" life="2000" />    
+                <p:panelGrid id="panel" columns="3">
+                    <f:facet name="header">
+                        <h:outputText value="Personal Data"/>
+                    </f:facet>
+
+                    <h:outputText value="Username:" />
+                    <h:outputText value="#{loginLogout.user.username}" />
+                    <h:outputText/>
+                    
+                    
+                    <h:outputText value="Password:" />
+                    <h:outputText value="#{myprofile.password}" rendered="#{not myprofile.EPassword}" />
+                    <h:inputText value="#{myprofile.password}" rendered="#{myprofile.EPassword}" />
+                    <h:commandButton id="Password" action="#{myprofile.editPassword()}" value="Edit">
+                        <f:ajax render ="panel"/>
+                    </h:commandButton>
+                    
+                    
+                    <h:outputText value="Name:" />
+                    <h:outputText value="#{myprofile.name}" rendered="#{not myprofile.EName}" />
+                    <h:inputText value="#{myprofile.name}" rendered="#{myprofile.EName}" />
+                    <h:commandButton id="Name" value="Edit" action="#{myprofile.editName()}">
+                        <f:ajax render ="panel"/>
+                    </h:commandButton>
+                    
+                    <h:outputText value="Surname:" />
+                    <h:outputText value="#{myprofile.surname}" rendered="#{not myprofile.ESurname}" />
+                    <h:inputText value="#{myprofile.surname}" rendered="#{myprofile.ESurname}" />
+                    <h:commandButton id="Surname" value="Edit" action="#{myprofile.editSurname()}">
+                        <f:ajax render ="panel"/>
+                    </h:commandButton>
+                    
+                    <h:outputText value="Email:" />
+                    <h:outputText value="#{myprofile.email}" rendered="#{not myprofile.EEmail}" />
+                    <h:inputText value="#{myprofile.email}" rendered="#{myprofile.EEmail}" />
+                    <h:commandButton id="Email" value="Edit" action="#{myprofile.editEmail()}">
+                        <f:ajax render ="panel"/>
+                    </h:commandButton>
+                    
+                    <h:outputText value="Phone:" />
+                    <h:outputText value="#{myprofile.phone}" rendered="#{not myprofile.EPhone}" />
+                    <h:inputText value="#{myprofile.phone}" rendered="#{myprofile.EPhone}" />
+                    <h:commandButton id="Phone" value="Edit" action="#{myprofile.editPhone()}">
+                        <f:ajax render ="panel"/>
+                    </h:commandButton>
+                    
+                    <h:outputText value="Address:" />
+                    <h:outputText value="#{myprofile.address}" rendered="#{not myprofile.EAddress}" />
+                    <h:inputText value="#{myprofile.address}" rendered="#{myprofile.EAddress}" />
+                    <h:commandButton id="Address" value="Edit" action="#{myprofile.editAddress()}">
+                        <f:ajax render ="panel"/>
+                    </h:commandButton>
+                    
+                    <h:outputText value="City:" />
+                    <h:outputText value="#{myprofile.city}" rendered="#{not myprofile.ECity}" />
+                    <h:inputText value="#{myprofile.city}" rendered="#{myprofile.ECity}" />
+                    <h:commandButton id="City" value="Edit" action="#{myprofile.editCity()}">
+                        <f:ajax render ="panel"/>
+                    </h:commandButton>
+                    
+                    <h:outputText value="Country:" />
+                    <h:outputText value="#{myprofile.country}" rendered="#{not myprofile.ECountry}" />
+                    <h:inputText value="#{myprofile.country}" rendered="#{myprofile.ECountry}" />
+                    <h:commandButton id="Country" value="Edit" action="#{myprofile.editCountry()}">
+                        <f:ajax render ="panel"/>
+                    </h:commandButton>
+                    
+                    <h:outputText value="Date of Registration:" />
+                    <h:outputText value="#{loginLogout.user.dateRegistartion}" />
+                    <h:outputText/>
+                    
+                    <h:outputText value="Bit Rating"  />
+                    <h:outputText value="#{myprofile.bidRating}" />
+                    <h:outputText/>
+                  
+                    <h:outputText value="Seller Rating" rendered="#{myprofile.accountType == 2}" />
+                    <h:outputText value="#{myprofile.sellerRating}" rendered="#{myprofile.accountType == 2}"/>
+                    <h:outputText rendered="#{myprofile.accountType == 2}" />
+                  
+                    
+                    <h:outputText value="Account Type" />
+                    <h:outputText value="Administrator" rendered="#{myprofile.accountType == 1}"/>
+                    <h:outputText value="Seller" rendered="#{myprofile.accountType == 2}"/>
+                    <h:outputText value="Buyer" rendered="#{myprofile.accountType == 3}"/>
+                    <h:outputText/>
+                  
+   
+                
+                </p:panelGrid>
+                    <p:commandButton id="Save" value="Save Changes" update="growl" actionListener="#{myprofile.save}" styleClass="ui-priority-primary"/>    
+                </h:form>    
+            </ui:define>
+        </ui:composition>
+        
+    </body>
+</html>

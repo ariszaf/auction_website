@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="/template/user_template.xhtml">
+        <ui:define name="title">
+                Rate Seller
+        </ui:define>
+        <body>
+        <ui:define name="content">
+            <h:form>
+                <h:messages style="color: red" globalOnly="true"/>
+                <p:growl id="messages" showDetail="true" />
+                <h:outputText styleClass="rbp_title" value="Pending ratings to sellers"/>    
+                <f:view>                                                                     
+                    <p:dataTable styleClass="rbp_table" value="#{rateSellerController.item_id_p}" var="item">
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Rating"/>
+                            </f:facet>
+                                <p:rating value="#{rateSellerController.rate}"  style="padding: 11px;" cancel="false"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Item Id"/>
+                            </f:facet>
+                                <h:outputText value="#{item}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Rate Seller"/>
+                            </f:facet>
+                                <p:commandButton id="deleteAuction" value="Rate" action="#{rateSellerController.rateseller()}">
+                                <f:param name="itemId" value="#{item}"/>
+                                </p:commandButton>
+                        </p:column>
+                    </p:dataTable>          
+
+                <h:outputText styleClass="rbs_title" value="Submitted ratings to sellers"/>    
+                    <p:dataTable styleClass="rbs_table" value="#{rateSellerController.buyier_rating_s}" var="item">
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Rating"/>
+                            </f:facet>
+                                <p:rating value="#{item}" style="padding: 1px;" readonly="true" />
+                        </p:column>
+                    </p:dataTable>                                          
+                    <p:dataTable styleClass="ris_table" value="#{rateSellerController.item_id_s}" var="item">
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Item Id"/>
+                            </f:facet>
+                                <h:outputText value="#{item}"/>
+                        </p:column>
+                    </p:dataTable>          
+                    </f:view>
+                </h:form>
+            </ui:define>
+    </body>
+    </ui:composition>
+</html>

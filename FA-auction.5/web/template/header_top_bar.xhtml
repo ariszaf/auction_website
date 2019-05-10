@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <head>      
+    </head>
+    <body>
+        <ui:composition>            
+            <h:form id ="topform">
+            <h:link outcome="/faces/template/menu"><h:graphicImage styleClass="fb-social-logo" library="images" name="facebook.png"/></h:link>
+            <h:link outcome="/faces/template/menu"><h:graphicImage styleClass="social-logo" library="images" name="twitter.png"/></h:link>            
+            <h:link outcome="/faces/template/menu"><h:graphicImage styleClass="social-logo" library="images" name="youtube.png"/></h:link> 
+            <h:panelGroup rendered="#{not loginLogout.loggedIn}">
+            <h:graphicImage styleClass="login" library="images" name="login.ico"/>
+            <h:link styleClass="logintop" outcome="/faces/index.xhtml"> <h:outputText value="Login"/></h:link>
+            <h:graphicImage styleClass="register" library="images" name="register.png"/>
+            <h:link styleClass="registertop" outcome="/faces/visitor/signup.xhtml"> <h:outputText value="Register"/></h:link>
+            </h:panelGroup>
+            
+            <h:panelGroup rendered="#{loginLogout.loggedIn}">
+            <h:graphicImage id="logout_icon" styleClass="logout_icon" library="images" name="user_logout_icon.png"/>        
+            <h:commandLink id="logouttop" styleClass="logouttop" action="#{loginLogout.logout()}"  value="Logout"></h:commandLink>         
+            <h:graphicImage id="message_icon" styleClass="message_icon" library="images" name="message_icon.png"/>
+            <h:outputText id="message_counter" styleClass="message_counter" rendered="#{not(loginLogout.unreadMessages == 0)}" value="#{loginLogout.unreadMessages}" />
+            <h:link id="messages" styleClass="messages" outcome="/restricted/user/mymessages.xhtml"> <h:outputText value="Messages"/></h:link>
+            </h:panelGroup>
+            </h:form>
+        </ui:composition>    
+    </body>
+</html>

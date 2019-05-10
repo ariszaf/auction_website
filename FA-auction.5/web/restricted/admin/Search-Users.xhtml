@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head></h:head>
+    <body>
+        <ui:composition template="../../template/admin_template.xhtml" rendered="#{loginLogout.accountype == 3}">
+            
+            <title><ui:define name="title">Search Users</ui:define></title>
+            <ui:define name="content">
+          
+           <h:form id="form">    
+             
+            <p:growl widgetVar="growl" />
+            
+            <p:commandButton style="position:absolute; left: 1130px " id="ExportXML" value="ExportXML" action="#{searchUsers.exportXML()}"/>
+            <h:panelGrid columns="3" style="margin:10px 0" >
+                <p:outputLabel for="template" value="Template:" style="font-weight:bold"/>
+                <p:inputText id="template" value="#{searchUsers.columnTemplate}" size="50"/>
+                <p:commandButton update="Users" actionListener="#{searchUsers.updateColumns}" value="Update" process="@parent" icon="ui-icon-refresh" oncomplete="PF('UsersTable').clearFilters()"/>
+            </h:panelGrid>
+ 
+            <p:dataTable id="Users" var="user" value="#{searchUsers.users}" rows="100" 
+                         widgetVar="UsersTable" filteredValue="#{searchUsers.filteredUsers}"
+                         paginator="true"
+                         paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,20,50,100">                   
+            <p:columns value="#{searchUsers.columns}" var="column" columnIndexVar="colIndex" sortBy="#{user[column.property]}" filterBy="#{user[column.property]}">
+                <f:facet name="header">
+                    <h:outputText value="#{column.header}" />
+                </f:facet>
+             
+                
+                
+                <h:outputText value="#{user[column.property]}" rendered="#{not empty user[column.property] and column.property != 'username'}"  />
+                <p:link outcome="viewProfile" value="#{user[column.property]}" rendered="#{not empty user[column.property] and column.property == 'username'}" >
+                     <f:param name="user" value="#{user['username']}"/>
+                </p:link>
+                <p:commandButton value="activate" onclick="PF('growl').renderMessage();" actionListener="#{activateUpdate.activateUser(user['username'])}" style="margin-left: 4px" rendered="#{column.property == 'validation' and user[column.property]== 'false'}"/>
+                   
+                 
+            
+            </p:columns>
+        </p:dataTable>
+            </h:form>
+         
+            
+        
+            </ui:define>
+    </ui:composition>
+   </body>
+</html>

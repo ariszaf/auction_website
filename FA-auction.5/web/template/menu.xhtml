@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <head>      
+    </head>
+    <body>
+        <ui:composition>
+                <h:link outcome="/restricted/user/homepage.xhtml" id="dropbtn1">Home</h:link>   
+                <h:link outcome="/view_auctions.xhtml" id="dropbtn2">Auctions</h:link>
+                <h:panelGroup id="dropdown4" rendered="#{loginLogout.loggedIn}" >  
+                <h:link outcome="/restricted/user/myprofile.xhtml" id="dropbtn4">My Account</h:link>
+                <h:panelGroup id="dropdown-content4" rendered="#{loginLogout.loggedIn}" >
+                <h:link outcome="/restricted/user/myprofile.xhtml">My Profil</h:link>
+                <h:link outcome="/restricted/user/my_bids.xhtml">My Bids</h:link>
+                <h:link rendered="#{loginLogout.accountype == 2}" outcome="/restricted/user/add_auction.xhtml">Add New Auction</h:link>
+                <h:link rendered="#{loginLogout.accountype ==2}"  outcome="/restricted/user/view_my_active_auctions.xhtml">My Active Auctions</h:link>
+                <h:link rendered="#{loginLogout.accountype ==2}" outcome="/restricted/user/view_my_inactive_auctions.xhtml">My Inactive Auctions</h:link>      
+                </h:panelGroup>
+                </h:panelGroup>
+                <h:panelGroup id="dropdown5" rendered="#{loginLogout.loggedIn}" >  
+                <h:link id="dropbtn5">Rates</h:link>
+                <h:panelGroup id="dropdown-content5">
+                <h:link  outcome="/restricted/user/my_ratings.xhtml">My Ratings</h:link>
+                <h:link outcome="/restricted/user/rate_seller.xhtml">Rate Seller</h:link>
+                <h:link rendered="#{loginLogout.accountype == 2}"  outcome="/restricted/user/rate_buyer.xhtml" >Rate Buyer</h:link>
+                </h:panelGroup>
+                </h:panelGroup>
+        </ui:composition>    
+    </body>
+</html>
